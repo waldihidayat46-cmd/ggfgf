@@ -1,0 +1,66 @@
+<?php
+// =============================================
+// Program : Sapaan Berdasarkan Jam dan Menit
+// Kelompok : Waldi Hidayat
+// =============================================
+
+// ---------------------------
+// 1. Inisialisasi Variabel
+// ---------------------------
+$jam = 06;     // Contoh jam saat ini
+$menit = 45;   // Contoh menit saat ini
+
+// ---------------------------
+// 2. Konversi waktu ke total menit
+//    (memudahkan perbandingan jam dan menit)
+// ---------------------------
+$totalMenit = $jam * 60 + $menit;
+
+// ---------------------------
+// 3. Batas waktu setiap sapaan
+//    Semua dikonversi ke bentuk menit dari 00:00
+// ---------------------------
+
+// Pagi   : 05:30 - 10:30
+$pagiMulai   = 5 * 60 + 30;   // 330
+$pagiSelesai = 10 * 60 + 30;  // 630
+
+// Siang  : 10:31 - 14:30
+$siangMulai   = 10 * 60 + 31; // 631
+$siangSelesai = 14 * 60 + 30; // 870
+
+// Sore   : 14:31 - 17:30
+$soreMulai   = 14 * 60 + 31;  // 871
+$soreSelesai = 17 * 60 + 30;  // 1050
+// Malam : 17:31 - 05:29 (melewati tengah malam)
+$malamMulai1 = 17 * 60 + 31;  // 1051 (17:31)
+$malamSelesai1 = 23 * 60 + 59; // 1439 (23:59)
+$malamMulai2 = 0;              // 00:00
+$malamSelesai2 = 5 * 60 + 29;  // 329 (05:29)
+
+// ---------------------------
+// 4. Struktur Logika If-Elseif-Else
+// ---------------------------
+
+// Waktu Pagi
+if ($totalMenit >= $pagiMulai && $totalMenit <= $pagiSelesai) {
+    echo "Selamat Pagi";
+
+// Waktu Siang
+} elseif ($totalMenit >= $siangMulai && $totalMenit <= $siangSelesai) {
+    echo "Selamat Siang";
+
+// Waktu Sore
+} elseif ($totalMenit >= $soreMulai && $totalMenit <= $soreSelesai) {
+    echo "Selamat Sore";
+
+// Waktu Malam (gabungan dua kondisi: sebelum & sesudah tengah malam)
+} elseif (($totalMenit >= $malamMulai1 && $totalMenit <= $malamSelesai1) ||
+          ($totalMenit >= $malamMulai2 && $totalMenit <= $malamSelesai2)) {
+    echo "Selamat Malam";
+
+// Jika tidak termasuk rentang apa pun (harusnya tidak terjadi)
+} else {
+    echo "Waktu tidak diketahui";
+}
+?>
